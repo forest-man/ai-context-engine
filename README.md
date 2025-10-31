@@ -1,3 +1,10 @@
+# AI Context Engine for Jira/Xray
+
+Forked and extended from the DARYL project (© lohmancorp, Apache 2.0 License).  
+This version adds automated Jira/Xray test case generation and AI-based context processing.
+
+
+
 # D.A.R.Y.L. Setup Instructions
 
 (D)ata (A)nalysis (R)obot, makes (Y)our (L)ife easier.
