@@ -96,3 +96,9 @@ Open a terminal in the project's root directory and run the command below. The s
     ```
 
 > **Note:** The server will output the local URL in the terminal (e.g., `https://daryl.local:8000`). If your browser shows a security warning, it's because the certificate is self-signed. Since you created and trusted it yourself in the steps above, you can safely proceed.
+
+## Modifications and Improvements
+- Integrated Xray REST API for automated test case creation
+- Added AI-driven context analyzer for Jira Epics
+- Enhanced HTTPS server configuration and assets handling
+
