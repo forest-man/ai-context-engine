@@ -147,6 +147,44 @@ class CORSRequestHandler(SimpleHTTPRequestHandler):
     def log_message(self, format, *args):
         logging.info("%s - %s" % (self.client_address[0], format % args))
 
+# === Diagnostic integration test between layers ===
+print("Running minimal integration check...")
+
+try:
+    # Verify imports and object creation across layers
+    from context_engine.analyzer import ContextAnalyzer
+    from atlassian_client.context_adapter import AtlassianContextAdapter
+    from atlassian_client.rest_client import XrayRestClient
+
+    # Initialize each component
+    analyzer = ContextAnalyzer()
+    adapter = AtlassianContextAdapter()
+    client = XrayRestClient(base_url="https://xray.cloud.getxray.app", client_id="dummy", client_secret="dummy")
+
+    print("Imports and initializations succeeded")
+
+    # Test the analyzer layer with fake data
+    fake_context = {"summary": "Login test", "details": "Verify login works with valid credentials"}
+    try:
+        result = analyzer.analyze_context(fake_context)
+        print(f" Analyzer output: {result}")
+    except Exception as e:
+        print(f" Analyzer test failed: {e}")
+
+    # Test the adapter layer with the same dummy context
+    try:
+        processed = adapter.process_context(fake_context)
+        print(f" Adapter processed context: {processed}")
+    except Exception as e:
+        print(f" Adapter test failed: {e}")
+
+    print(" Minimal integration test complete.\n")
+
+except Exception as e:
+    print(f" Integration test failed: {e}")
+
+
+
 if __name__ == "__main__":
     Handler = partial(CORSRequestHandler, directory=SERVE_DIR)
     httpd = HTTPServer((HOST, PORT), Handler)
